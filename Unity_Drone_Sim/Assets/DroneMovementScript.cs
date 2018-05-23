@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class DroneMovementScript : MonoBehaviour {
 
-    Rigidbody ourDrone;
+    public Transform[] cilj;
+    public float hitrost;
+
+    private int trenuten;
+
+
+    /*Rigidbody ourDrone;
     public float upForce;
 
     public void Awake()
@@ -22,15 +28,24 @@ public class DroneMovementScript : MonoBehaviour {
     public void MovementUpDown()
     {
 
-    }
+    }*/
 
-    /*// Use this for initialization
+    ///*// Use this for initialization
     void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}*/
+		if(transform.position != cilj[trenuten].position)
+        {
+            Vector3 pos = Vector3.MoveTowards(transform.position, cilj[trenuten].position, hitrost * Time.deltaTime);
+            GetComponent<Rigidbody>().MovePosition(pos);
+
+        }
+        else
+        {
+            trenuten = (trenuten + 1) % cilj.Length;
+        }
+	}//*/
 }
