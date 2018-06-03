@@ -14,7 +14,6 @@ public class DroneMovementScript : MonoBehaviour {
     
 
     Rigidbody ourDrone;
-    public float upForce;
 
     public void Awake()
     {
@@ -23,9 +22,6 @@ public class DroneMovementScript : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        MovementUpDown();
-
-        ourDrone.AddRelativeForce(Vector3.up * upForce);
     }
     
     public void MovementUpDown()
@@ -47,7 +43,7 @@ public class DroneMovementScript : MonoBehaviour {
         {
             //Vector3 pos = Vector3.MoveTowards(transform.position, cilj[trenuten].position, hitrost * Time.deltaTime);
             Vector3 pos = Vector3.MoveTowards(transform.position, trajektorji[trenuten], hitrost * Time.deltaTime);
-            GetComponent<Rigidbody>().MovePosition(pos);
+            ourDrone.MovePosition(pos);
 
         }
         else
