@@ -9,6 +9,7 @@ using System;
 public class GameController : MonoBehaviour {
     private static GameController instance;
     public GameObject droneModel;
+    public GameObject oddajnikModel;
     public List<GameObject> Droni = new List<GameObject>();
     public Button buttonComponent;
     //public TextAsset Datoteka;
@@ -18,6 +19,24 @@ public class GameController : MonoBehaviour {
     //private List<int> trenuten = new List<int>();
     //public List<float> hitrostiDronov = new List<float>();
     //public List<MonoBehaviour> eventSubscribedScripts = new List<MonoBehaviour>();
+
+    /*[MenuItem("Tools/Read file")]
+    void ReadOddajniki()
+    {
+        string data = "";
+        string path = "Assets/Oddajniki.txt";
+        StreamReader reader = new StreamReader(path);
+        do
+        {
+            data = reader.ReadLine();
+            string[] substring = data.Split('|');
+            Vector3 poz = new Vector3(float.Parse(substring[0]), float.Parse(substring[1]), float.Parse(substring[2]));
+            GameObject newOddajnik = Instantiate(oddajnikModel, poz, new Quaternion(0, 0, 0, 0)) as GameObject;
+            //Dodajanje
+            Debug.Log(data);
+        } while (data != null);
+        reader.Close();
+    }*/
 
     public void DodajDrona(Vector3 pozicija, Quaternion rotacija, int hitrost, List<Vector3> trajektorji)
     {
@@ -34,6 +53,25 @@ public class GameController : MonoBehaviour {
     [MenuItem("Tools/Read file")]
     void ReadString()
     {
+        string dat = "";
+        string pat = "Assets/Oddajniki.txt";
+        StreamReader read = new StreamReader(pat);
+        do
+        {
+            dat = read.ReadLine();
+            if(dat == null)
+            {
+                break;
+            }
+            string[] substring = dat.Split('|');
+            Vector3 pozi = new Vector3(float.Parse(substring[0]), float.Parse(substring[1]), float.Parse(substring[2]));
+            GameObject newOddajnik = Instantiate(oddajnikModel, pozi, new Quaternion(0, 0, 0, 0)) as GameObject;
+            //Dodajanje
+            Debug.Log(dat);
+        } while (dat != null);
+        read.Close();
+
+
         List<string> vsiPodatki = new List<string>();
         string data = "";
         string path = "Assets/Podatki.txt";
@@ -41,6 +79,10 @@ public class GameController : MonoBehaviour {
         do
         {
             data = reader.ReadLine();
+            if (data == null)
+            {
+                break;
+            }
             vsiPodatki.Add(data);
             //Debug.Log(data);
         } while (data != null);
@@ -169,6 +211,7 @@ public class GameController : MonoBehaviour {
         /*******************************************PROOF OF CONCEPT****************************************************/
         buttonComponent.onClick.AddListener(HandleClick);
         buttonComponent.GetComponentInChildren<Text>().text = "DODAJ DRONA";
+        //ReadOddajniki();
         ReadString();
     }
 
